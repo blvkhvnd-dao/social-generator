@@ -92,7 +92,7 @@ const Preview = React.forwardRef<HTMLCanvasElement, { banner: AcolyteBanner }>(
           style={{ display: "none" }}
         />
         <div className="block relative aspect-[3/1] w-full md:w-500px lg:w-750px bg-blvk-gray">
-          <img src={banner.theme?.imgPath} />
+          <img src={banner.theme?.imgPath} alt="banner-preview" />
           <div className="absolute top-0 left-0 right-0 bottom-0 text-center text-white align-middle">
             <div className="flex w-full h-full items-center justify-center">
               <span
@@ -190,7 +190,7 @@ export default function Dashboard() {
                 key={`theme-${i}`}
                 onClick={() => onSelectTheme(theme)}
               >
-                <img src={theme.imgPath} />
+                <img src={theme.imgPath} alt={`theme-${i}-preview`} />
               </div>
             );
           })}
