@@ -55,9 +55,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistMono.className}>
-      <body className="min-h-screen w-full">
+      <body className="min-h-screen w-full flex flex-col">
         <Header />
-        <main className="relative flex w-full grow">{children}</main>
+        <main className="relative flex flex-col w-full grow">{children}</main>
       </body>
     </html>
   );
