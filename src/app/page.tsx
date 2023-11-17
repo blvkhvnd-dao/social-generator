@@ -108,6 +108,8 @@ const Preview = React.forwardRef<HTMLCanvasElement, { banner: AcolyteBanner }>(
   }
 );
 
+Preview.displayName = "Preview";
+
 export default function Dashboard() {
   const [state, setState] = React.useState<AcolyteBanner>({
     username: "",
