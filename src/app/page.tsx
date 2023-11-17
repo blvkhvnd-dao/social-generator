@@ -15,7 +15,7 @@ const Row = ({
           {title}
         </span>
       </div>
-      <div>{children}</div>
+      {children}
     </div>
   );
 };
