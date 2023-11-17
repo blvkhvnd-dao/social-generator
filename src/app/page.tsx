@@ -2,6 +2,11 @@
 
 import React from "react";
 import { twMerge } from "tailwind-merge";
+import localFont from "next/font/local";
+
+const PPRightDidone = localFont({
+  src: "../../public/fonts/pp-right-didone.otf",
+});
 
 const Row = ({
   title,
@@ -53,6 +58,11 @@ const Preview = ({ banner }: { banner: AcolyteBanner }) => {
         <div className="absolute top-0 left-0 right-0 bottom-0 text-center text-white align-middle">
           <div className="flex w-full h-full items-center justify-center">
             <span>{banner.username}</span>
+            <span
+              className={`${PPRightDidone.className} text-[50px] md:text-[70px] lg:text-[90px] text-stroke`}
+            >
+              {banner.username}
+            </span>
           </div>
         </div>
       </div>
