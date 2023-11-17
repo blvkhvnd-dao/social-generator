@@ -162,7 +162,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex flex-col gap-4 pt-3 w-full h-full grow">
+    <div className="flex flex-col gap-4 md:gap-8 pt-3 md:pt-6 w-full h-full grow">
       <Row title="Setup">
         <div className="flex flex-col md:flex-row gap-2">
           <input
