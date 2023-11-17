@@ -6,7 +6,7 @@ import localFont from "next/font/local";
 import { HORIZONTAL_SPACING_STYLE } from "@/lib/constants/layout";
 
 const PPRightDidone = localFont({
-  src: "../../public/fonts/pp-right-didone.otf",
+  src: "../../public/fonts/pp-right-didone-tight-medium.otf",
 });
 
 const Row = ({
@@ -73,7 +73,7 @@ const Preview = React.forwardRef<HTMLCanvasElement, { banner: AcolyteBanner }>(
       image.onload = () => {
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-        ctx.font = `116px ${PPRightDidone.style.fontFamily}`;
+        ctx.font = `224px ${PPRightDidone.style.fontFamily}`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
 
@@ -105,7 +105,7 @@ const Preview = React.forwardRef<HTMLCanvasElement, { banner: AcolyteBanner }>(
           <div className="absolute top-0 left-0 right-0 bottom-0 text-center text-white align-middle">
             <div className="flex w-full h-full items-center justify-center">
               <span
-                className={`${PPRightDidone.className} text-[50px] md:text-[70px] lg:text-[90px] text-stroke`}
+                className={`${PPRightDidone.className} text-[60px] sm:text-[74px] lg:text-[112px] text-stroke`}
               >
                 {banner.username}
               </span>
