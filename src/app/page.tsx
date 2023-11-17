@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useImperativeHandle } from "react";
 import { twMerge } from "tailwind-merge";
 import localFont from "next/font/local";
 
@@ -47,28 +47,66 @@ interface AcolyteBanner {
   theme?: Theme;
 }
 
-const Preview = ({ banner }: { banner: AcolyteBanner }) => {
-  return (
-    <div>
-      <span className="block text-[#4B4B4B] my-3">
-        {banner.platform ?? ""} BANNER
-      </span>
-      <div className="block relative aspect-[3/1] w-full md:w-500px lg:w-750px bg-blvk-gray">
-        <img src={banner.theme?.imgPath} />
-        <div className="absolute top-0 left-0 right-0 bottom-0 text-center text-white align-middle">
-          <div className="flex w-full h-full items-center justify-center">
-            <span>{banner.username}</span>
-            <span
-              className={`${PPRightDidone.className} text-[50px] md:text-[70px] lg:text-[90px] text-stroke`}
-            >
-              {banner.username}
-            </span>
+const Preview = React.forwardRef<HTMLCanvasElement, { banner: AcolyteBanner }>(
+  ({ banner }, ref) => {
+    const canvasRef = React.useRef<HTMLCanvasElement>(null);
+    useImperativeHandle(ref, () => canvasRef.current as HTMLCanvasElement);
+
+    React.useEffect(() => {
+      if (!canvasRef || !canvasRef.current) return;
+
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+
+      if (!ctx || !banner.theme) return;
+
+      const image = new Image();
+
+      image.src = banner.theme.imgPath;
+      image.onload = () => {
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        ctx.font = `116px ${PPRightDidone.style.fontFamily}`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 2;
+        ctx.strokeText(banner.username, canvas.width / 2, canvas.height / 2);
+
+        ctx.fillStyle = "white";
+        ctx.fillText(banner.username, canvas.width / 2, canvas.height / 2);
+      };
+    }, [banner]);
+
+    return (
+      <div>
+        <span className="block text-[#4B4B4B] my-3">
+          {banner.platform ?? ""} BANNER
+        </span>
+
+        <canvas
+          ref={canvasRef}
+          width="1500"
+          height="500"
+          style={{ display: "none" }}
+        />
+        <div className="block relative aspect-[3/1] w-full md:w-500px lg:w-750px bg-blvk-gray">
+          <img src={banner.theme?.imgPath} />
+          <div className="absolute top-0 left-0 right-0 bottom-0 text-center text-white align-middle">
+            <div className="flex w-full h-full items-center justify-center">
+              <span
+                className={`${PPRightDidone.className} text-[50px] md:text-[70px] lg:text-[90px] text-stroke`}
+              >
+                {banner.username}
+              </span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default function Dashboard() {
   const [state, setState] = React.useState<AcolyteBanner>({
@@ -100,9 +138,17 @@ export default function Dashboard() {
     [setState]
   );
 
-  const onDownload = React.useCallback(() => {
-    alert("TODO!");
-  }, [state]);
+  const canvasRef = React.createRef<HTMLCanvasElement>();
+
+  const onDownload = () => {
+    if (!canvasRef.current) return;
+    const canvas = canvasRef.current;
+    const image = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = image;
+    link.download = "acolyte-banner.png";
+    link.click();
+  };
 
   return (
     <div className="flex flex-col gap-4 pt-3 w-full h-full grow">
@@ -150,7 +196,7 @@ export default function Dashboard() {
       </Row>
 
       <Row title="Preview">
-        <Preview banner={state} />
+        <Preview banner={state} ref={canvasRef} />
       </Row>
 
       <div className="grow" />
