@@ -3,6 +3,7 @@
 import React, { useImperativeHandle } from "react";
 import { twMerge } from "tailwind-merge";
 import localFont from "next/font/local";
+import { HORIZONTAL_SPACING_STYLE } from "@/lib/constants/layout";
 
 const PPRightDidone = localFont({
   src: "../../public/fonts/pp-right-didone.otf",
@@ -14,7 +15,13 @@ const Row = ({
   children,
 }: React.PropsWithChildren<{ title: string; className?: string }>) => {
   return (
-    <div className={twMerge("flex px-8 gap-2 flex-col md:flex-row", className)}>
+    <div
+      className={twMerge(
+        HORIZONTAL_SPACING_STYLE,
+        "flex gap-2 flex-col md:flex-row",
+        className
+      )}
+    >
       <div className="md:w-56 shrink-0">
         <span className="block uppercase font-medium text-2xl my-2 align-middle">
           {title}

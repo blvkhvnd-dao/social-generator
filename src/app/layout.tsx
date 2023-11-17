@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { GeistMono } from "geist/font/mono";
 import Image from "next/image";
 import { NavItems, MobileMenu } from "@/components/Menu";
+import {
+  HORIZONTAL_SPACING_STYLE,
+  VERTICAL_SPACING_STYLE,
+} from "@/lib/constants/layout";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -11,7 +15,12 @@ export const metadata: Metadata = {
 
 const Header = () => {
   return (
-    <div className="flex items-stretch p-8 items-start md:items-center border-b border-black">
+    <div
+      className={`
+        ${HORIZONTAL_SPACING_STYLE}
+        ${VERTICAL_SPACING_STYLE}
+        flex items-stretch items-start md:items-center border-b border-black`}
+    >
       <div className="flex flex-col gap-8 md:gap-6 lg:gap-14 md:flex-row">
         <div className="flex gap-4 items-center">
           <Image

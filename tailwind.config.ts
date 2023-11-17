@@ -19,5 +19,6 @@ const config: Config = {
     },
   },
   plugins: [],
+  safelist: ['py-4', 'md:py-8', 'px-4', 'md:px-8'],
 }
 export default config
