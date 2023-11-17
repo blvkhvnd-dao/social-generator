@@ -4,7 +4,7 @@ import React from "react";
 
 const navItems = [
   { title: "HELP", href: "#", isExternal: false },
-  { title: "APPLY", href: "#", isExternal: true },
+  { title: "APPLY", href: "https://t.co/a2DQOweIm8", isExternal: true },
   { title: "DAO", href: "https://blvkhvnd.wtf", isExternal: true },
 ];
 
