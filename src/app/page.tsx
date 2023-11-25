@@ -33,16 +33,28 @@ const Row = ({
 };
 
 interface Theme {
-  imgPath: string;
+  name: string;
+  imageName: string;
 }
 
 const THEMES: Theme[] = [
-  { imgPath: "/images/themes/1.png" },
-  { imgPath: "/images/themes/2.png" },
-  { imgPath: "/images/themes/3.png" },
-  { imgPath: "/images/themes/4.png" },
-  { imgPath: "/images/themes/5.png" },
+  { name: "acolyte", imageName: "acolyte" },
+  { name: "black", imageName: "black" },
+  { name: "blackmarrow", imageName: "blackmarrow" },
+  { name: "dragonswind", imageName: "dragonswind" },
+  { name: "gunmetal", imageName: "gunmetal" },
+  { name: "hvndsofnature", imageName: "HVNDSOFNATURE" },
+  { name: "knighted", imageName: "knighted" },
+  { name: "liquidink", imageName: "liquidink" },
+  { name: "searching", imageName: "searching" },
+  { name: "thehvnd", imageName: "theHVND" },
+  { name: "theworldover", imageName: "theworldover" },
+  { name: "toonisland", imageName: "toonisland" },
 ];
+
+const getImagePath = (theme: Theme, size: "sm" | "lg") => {
+  return `/images/banners/${theme.imageName}${size === "lg" ? "@2x" : ""}.png`;
+};
 
 enum Platform {
   X = "X [TWITTER]",
@@ -69,7 +81,7 @@ const Preview = React.forwardRef<HTMLCanvasElement, { banner: AcolyteBanner }>(
 
       const image = new Image();
 
-      image.src = banner.theme.imgPath;
+      image.src = getImagePath(banner.theme, "lg");
       image.onload = () => {
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
@@ -99,8 +111,8 @@ const Preview = React.forwardRef<HTMLCanvasElement, { banner: AcolyteBanner }>(
           style={{ display: "none" }}
         />
         <div className="block relative aspect-[3/1] w-full md:w-500px lg:w-750px bg-blvk-gray">
-          {banner.theme?.imgPath && (
-            <img src={banner.theme?.imgPath} alt="banner-preview" />
+          {banner.theme?.imageName && (
+            <img src={getImagePath(banner.theme, "sm")} alt="banner-preview" />
           )}
           <div className="absolute top-0 left-0 right-0 bottom-0 text-center text-white align-middle">
             <div className="flex w-full h-full items-center justify-center">
@@ -199,7 +211,7 @@ export default function Dashboard() {
                 key={`theme-${i}`}
                 onClick={() => onSelectTheme(theme)}
               >
-                <img src={theme.imgPath} alt={`theme-${i}-preview`} />
+                <img src={getImagePath(theme, "sm")} alt={`theme-${i}-preview`} />
               </div>
             );
           })}
